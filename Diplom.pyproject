@@ -1,0 +1,25 @@
+{
+    "files": [
+        "app/main.py",
+        "app/widgets/widget.py",
+        "app/database/db.py",
+        "app/ui/form.ui",
+        "app/ui/student_form.ui",
+        "app/ui/main.ui",
+        "app/ui/templates.ui",
+        "app/ui/dialog_box.ui",
+        "app/ui/users.ui",
+        "app/ui/create_box.ui",
+        "app/ui/login.ui",
+        "app/ui/user_blok.ui",
+        "app/ui/dialog_remove.ui",
+        "app/ui/defolt.ui",
+        "app/widgets/ui_form.py",
+        "app/widgets/ui_student_form.py",
+        "app/widgets/ui_main.py",
+        "app/widgets/ui_templates.py",
+        "app/widgets/ui_dialog_box.py",
+        "app/widgets/ui_create_box.py"
+    ],
+    "mainFile": "main.py"
+}

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Main</class>
+ <widget class="QWidget" name="Main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1419</width>
+    <height>923</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Системы автоматизации документооборота</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon/images.jpg</normaloff>icon/images.jpg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>1421</width>
+     <height>921</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1500</width>
+     <height>1100</height>
+    </size>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::TabFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="reference">
+    <attribute name="title">
+     <string>Справка</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>1401</width>
+       <height>871</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* В QSS-файле или строке */
+QScrollArea {
+    border: none;
+    background: transparent;
+}
+
+/* Вертикальная полоса прокрутки */
+QScrollBar:vertical {
+    width: 10px;
+    background: #2c2c2c;
+}
+
+QScrollBar::handle:vertical {
+    background: #606060;
+    border-radius: 5px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    background: none;
+}
+
+/* Горизонтальная полоса прокрутки */
+QScrollBar:horizontal {
+    height: 10px;
+    background: #2c2c2c;
+}
+
+QScrollBar::handle:horizontal {
+    background: #606060;
+    border-radius: 5px;
+}</string>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1401</width>
+        <height>871</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
