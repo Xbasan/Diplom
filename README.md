@@ -1,3 +1,4 @@
+```
 Diplom/
 │
 ├── app/                     
@@ -45,4 +46,4 @@ Diplom/
 ├── README.md
 ├── requirements.txt
 └── Diplom.pyproject            
-
+```
