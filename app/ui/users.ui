@@ -109,15 +109,15 @@ background-color: rgba(0, 85, 255, 55);</string>
   <widget class="QTextEdit" name="nameTextEdit">
    <property name="geometry">
     <rect>
-     <x>1049</x>
-     <y>60</y>
-     <width>311</width>
-     <height>44</height>
+     <x>1030</x>
+     <y>90</y>
+     <width>351</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="maximumSize">
     <size>
-     <width>320</width>
+     <width>360</width>
      <height>44</height>
     </size>
    </property>
@@ -146,15 +146,15 @@ padding-left:10px;</string>
   <widget class="QTextEdit" name="LoginTextEdit">
    <property name="geometry">
     <rect>
-     <x>1049</x>
-     <y>130</y>
-     <width>311</width>
-     <height>44</height>
+     <x>1030</x>
+     <y>150</y>
+     <width>351</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="maximumSize">
     <size>
-     <width>320</width>
+     <width>360</width>
      <height>44</height>
     </size>
    </property>
@@ -193,8 +193,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>1050</x>
-     <y>270</y>
+     <x>1030</x>
+     <y>280</y>
      <width>151</width>
      <height>41</height>
     </rect>
@@ -223,15 +223,15 @@ padding-left:10px</string>
   <widget class="QTextEdit" name="PasswordTextEdit">
    <property name="geometry">
     <rect>
-     <x>1049</x>
-     <y>200</y>
-     <width>311</width>
+     <x>1030</x>
+     <y>210</y>
+     <width>351</width>
      <height>44</height>
     </rect>
    </property>
    <property name="maximumSize">
     <size>
-     <width>320</width>
+     <width>360</width>
      <height>44</height>
     </size>
    </property>
@@ -265,6 +265,32 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
    <property name="placeholderText">
     <string>Пароль пользователя</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="update">
+   <property name="geometry">
+    <rect>
+     <x>1030</x>
+     <y>10</y>
+     <width>52</width>
+     <height>52</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 26px;
+background-color: rgba(0, 85, 255, 55);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::ViewRefresh"/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
    </property>
   </widget>
  </widget>

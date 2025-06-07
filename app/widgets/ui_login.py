@@ -24,7 +24,7 @@ class Ui_Loging(object):
             Loging.setObjectName(u"Loging")
         Loging.resize(466, 456)
         Loging.setStyleSheet(u"border-radius:30px;\n"
-"background-color: rgb(52, 167, 255);")
+"background-color: rgb(30, 85, 200);")
         self.login = QLineEdit(Loging)
         self.login.setObjectName(u"login")
         self.login.setGeometry(QRect(70, 150, 321, 61))
@@ -33,7 +33,7 @@ class Ui_Loging(object):
         font.setPointSize(16)
         font.setItalic(False)
         self.login.setFont(font)
-        self.login.setStyleSheet(u"background-color: rgb(62, 167, 255);\n"
+        self.login.setStyleSheet(u"background-color: rgba(30, 85, 255, 55);\n"
 "border-style: solid;\n"
 "border-width: 2px;\n"
 "border-color: blue;\n"
@@ -46,7 +46,7 @@ class Ui_Loging(object):
         font1.setFamilies([u"URW Gothic [UKWN]"])
         font1.setPointSize(16)
         self.password.setFont(font1)
-        self.password.setStyleSheet(u"background-color: rgb(62, 167, 255);\n"
+        self.password.setStyleSheet(u"background-color: rgba(30, 85, 255, 55);\n"
 "border-style: solid;\n"
 "border-width: 2px;\n"
 "border-color: blue;\n"
@@ -60,7 +60,7 @@ class Ui_Loging(object):
         font2.setPointSize(16)
         font2.setItalic(True)
         self.pushButton.setFont(font2)
-        self.pushButton.setStyleSheet(u"background-color: rgb(92, 167, 255);\n"
+        self.pushButton.setStyleSheet(u"background-color: rgba(30, 85, 255, 55);\n"
 "border-style: solid;\n"
 "border-width: 1px;\n"
 "border-color: blue;\n"
@@ -72,6 +72,7 @@ class Ui_Loging(object):
         self.label.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.label.setAutoFillBackground(False)
         self.label.setStyleSheet(u"font: 12pt \"URW Gothic [UKWN]\";\n"
+"background-color: None;\n"
 "")
         self.label.setFrameShape(QFrame.Shape.NoFrame)
         self.label.setFrameShadow(QFrame.Shadow.Plain)
@@ -88,7 +89,12 @@ class Ui_Loging(object):
         self.audentifaceit_errorLabel = QLabel(Loging)
         self.audentifaceit_errorLabel.setObjectName(u"audentifaceit_errorLabel")
         self.audentifaceit_errorLabel.setGeometry(QRect(70, 120, 321, 18))
-        self.audentifaceit_errorLabel.setStyleSheet(u"color: rgb(52, 167, 255);")
+        font3 = QFont()
+        font3.setFamilies([u"URW Gothic [UKWN]"])
+        font3.setPointSize(12)
+        self.audentifaceit_errorLabel.setFont(font3)
+        self.audentifaceit_errorLabel.setStyleSheet(u"color: rgba(30, 85, 255, 0);;\n"
+"background-color: None;")
 
         self.retranslateUi(Loging)
 

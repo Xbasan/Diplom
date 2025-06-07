@@ -9,6 +9,9 @@ def main(user_d):
     main_windows.setWindowIcon(QIcon("static/icon/ggkit.ico"))
     main_windows.setWindowTitle("Система документооборота колледжа")
     main_windows.resize(1420, 900)
+    main_windows.setMaximumHeight(900)
+    main_windows.setMaximumWidth(1420)
+    main_windows.setMinimumSize(1420, 900)
     main_windows.show()
     return main_windows
     # sys.exit(app.exec())

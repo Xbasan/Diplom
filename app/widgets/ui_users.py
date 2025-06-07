@@ -70,8 +70,8 @@ class Ui_Users(object):
         self.createButton.setIconSize(QSize(50, 50))
         self.nameTextEdit = QTextEdit(Users)
         self.nameTextEdit.setObjectName(u"nameTextEdit")
-        self.nameTextEdit.setGeometry(QRect(1049, 60, 311, 44))
-        self.nameTextEdit.setMaximumSize(QSize(320, 44))
+        self.nameTextEdit.setGeometry(QRect(1030, 90, 351, 41))
+        self.nameTextEdit.setMaximumSize(QSize(360, 44))
         font = QFont()
         font.setPointSize(14)
         font.setItalic(True)
@@ -84,8 +84,8 @@ class Ui_Users(object):
         self.nameTextEdit.setAcceptRichText(False)
         self.LoginTextEdit = QTextEdit(Users)
         self.LoginTextEdit.setObjectName(u"LoginTextEdit")
-        self.LoginTextEdit.setGeometry(QRect(1049, 130, 311, 44))
-        self.LoginTextEdit.setMaximumSize(QSize(320, 44))
+        self.LoginTextEdit.setGeometry(QRect(1030, 150, 351, 41))
+        self.LoginTextEdit.setMaximumSize(QSize(360, 44))
         self.LoginTextEdit.setFont(font)
         self.LoginTextEdit.setStyleSheet(u"border-radius: 12px;\n"
 "background-color: rgba(0, 85, 255, 55);\n"
@@ -96,19 +96,27 @@ class Ui_Users(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setGeometry(QRect(1050, 270, 151, 41))
+        self.comboBox.setGeometry(QRect(1030, 280, 151, 41))
         self.comboBox.setStyleSheet(u"border-radius: 12px;\n"
 "background-color: rgba(0, 85, 255, 55);\n"
 "padding-left:10px")
         self.PasswordTextEdit = QTextEdit(Users)
         self.PasswordTextEdit.setObjectName(u"PasswordTextEdit")
-        self.PasswordTextEdit.setGeometry(QRect(1049, 200, 311, 44))
-        self.PasswordTextEdit.setMaximumSize(QSize(320, 44))
+        self.PasswordTextEdit.setGeometry(QRect(1030, 210, 351, 44))
+        self.PasswordTextEdit.setMaximumSize(QSize(360, 44))
         self.PasswordTextEdit.setFont(font)
         self.PasswordTextEdit.setStyleSheet(u"border-radius: 12px;\n"
 "background-color: rgba(0, 85, 255, 55);\n"
 "padding-top:5px;\n"
 "padding-left:10px")
+        self.update = QPushButton(Users)
+        self.update.setObjectName(u"update")
+        self.update.setGeometry(QRect(1030, 10, 52, 52))
+        self.update.setStyleSheet(u"border-radius: 26px;\n"
+"background-color: rgba(0, 85, 255, 55);")
+        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ViewRefresh))
+        self.update.setIcon(icon1)
+        self.update.setIconSize(QSize(32, 32))
 
         self.retranslateUi(Users)
 
@@ -159,5 +167,6 @@ class Ui_Users(object):
 "</style></head><body style=\" font-family:'Noto Sans'; font-size:14pt; font-weight:400; font-style:italic;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.PasswordTextEdit.setPlaceholderText(QCoreApplication.translate("Users", u"\u041f\u0430\u0440\u043e\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
+        self.update.setText("")
     # retranslateUi
 

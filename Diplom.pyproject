@@ -13,6 +13,7 @@
         "app/ui/login.ui",
         "app/ui/user_blok.ui",
         "app/ui/dialog_remove.ui",
+        "app/ui/user_update.ui",
         "app/ui/defolt.ui",
         "app/widgets/ui_form.py",
         "app/widgets/ui_student_form.py",

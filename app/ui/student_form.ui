@@ -26,7 +26,8 @@
    <string>Widget</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgba(0, 85, 255, 55);
+   <string notr="true">font: 16pt &quot;URW Gothic [UKWN]&quot;;
+background-color: rgba(0, 85, 255, 55);
 border-radius: 10px;
 margin:5px</string>
   </property>
@@ -53,7 +54,9 @@ margin:5px</string>
    </property>
    <property name="font">
     <font>
-     <family>Serif</family>
+     <family>URW Gothic [UKWN]</family>
+     <pointsize>16</pointsize>
+     <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
@@ -76,8 +79,8 @@ margin:5px</string>
     </property>
     <property name="font">
      <font>
-      <family>Noto Sans</family>
-      <pointsize>14</pointsize>
+      <family>URW Gothic [UKWN]</family>
+      <pointsize>16</pointsize>
       <italic>false</italic>
       <bold>false</bold>
       <kerning>true</kerning>
@@ -110,9 +113,9 @@ margin:5px</string>
     </property>
     <property name="font">
      <font>
-      <family>Noto Sans</family>
-      <pointsize>14</pointsize>
-      <italic>true</italic>
+      <family>URW Gothic [UKWN]</family>
+      <pointsize>16</pointsize>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -134,9 +137,9 @@ margin:5px</string>
     </property>
     <property name="font">
      <font>
-      <family>Noto Sans</family>
-      <pointsize>14</pointsize>
-      <italic>true</italic>
+      <family>URW Gothic [UKWN]</family>
+      <pointsize>16</pointsize>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -161,9 +164,9 @@ margin:5px</string>
     </property>
     <property name="font">
      <font>
-      <family>Noto Sans</family>
-      <pointsize>14</pointsize>
-      <italic>true</italic>
+      <family>URW Gothic [UKWN]</family>
+      <pointsize>16</pointsize>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>

@@ -3,8 +3,9 @@ import os
 import sys
 import subprocess
 import re
+import datetime
 
-from PySide6.QtCore import QDate
+from PySide6.QtCore import QDate, QDir
 from PySide6.QtGui import (
     Qt,
     QDropEvent,
@@ -15,10 +16,11 @@ from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QDialog,
-    QLabel
+    QLabel,
+    QFileDialog
 )
 
-#     pyside6-uic form.ui -o ui_form.py,
+#     pyside6-uic form.ui -o ui_form.py
 
 from widgets.ui_form import Ui_Documents
 from widgets.ui_templates import Ui_Templates
@@ -31,6 +33,8 @@ from widgets.ui_user_blok import Ui_User
 from widgets.ui_dialog_remove import Ui_Remove_box
 from widgets.ui_defolt import Ui_Defolt
 from widgets.reference import help_text
+from widgets.ui_user_update import Ui_User_update
+from utils import Convert
 
 from database.db import (
         Documents,
@@ -51,6 +55,48 @@ class CreateCart(QDialog, Ui_Create_cart):
         self.widget.dragEnterEvent = self.dragEnterEvent
         self.widget.dropEvent = self.dropEvent
         self.saveButton.clicked.connect(self.savePressEvent)
+        self.file_vbor.clicked.connect(self.add_file)
+
+    def add_file(self):
+        home_path = QDir.homePath()
+        fname, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выбор файла",
+            home_path,
+            """All Files (*.*);;
+            Text Files (*.txt);;
+            Python Files (*.py);;
+            CSV Files (*.csv);;
+            JSON Files (*.json);;
+            XML Files (*.xml);;
+            HTML Files (*.html, *.htm);;
+            Markdown Files (*.md);;
+            PDF Files (*.pdf);;
+            Microsoft Word (*.doc, *.docx);;
+            Microsoft Excel (*.xls, *.xlsx);;
+            Microsoft PowerPoint (*.ppt, *.pptx);;
+            OpenDocument Text (*.odt);;
+            OpenDocument Spreadsheet (*.ods);;
+            OpenDocument Presentation (*.odp);;
+            Images (*.png, *.jpg, *.jpeg, *.gif, *.bmp, *.svg);;
+            Audio Files (*.mp3, *.wav, *.ogg, *.flac);;
+            Video Files (*.mp4, *.avi, *.mkv, *.mov);;
+            Archive Files (*.zip, *.rar, *.7z, *.tar.gz);;
+            SQLite Databases (*.db, *.sqlite);;
+            Executable Files (*.exe, *.msi);;
+            Batch Scripts (*.bat, *.cmd);;
+            Shell Scripts (*.sh);;
+            Config Files (*.ini, *.cfg, *.conf);;
+            Log Files (*.log);;
+            Torrent Files (*.torrent);;
+            eBooks (*.epub, *.mobi);;
+            Fonts (*.ttf, *.otf, *.woff, *.woff2);;
+            Заедало (.все)"""
+        )
+        if fname:
+            self.File_name.setText(re.search(r"([^/]+\.[^.]+)$",
+                                             fname).group(1))
+            self.File_path.setText(fname)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -96,17 +142,40 @@ class SaveMenu(QDialog, Ui_dialog_box):
         docs = Documents()
         self.document = docs.get_documents_by_id(document_id)
         self.content = self.document[0]["content"]
-
         self.downloads_path = os.path.join(os.path.expanduser("~"), PATH_SAVE)
-        self.saveButton.clicked.connect(self.savePressEvent)
+        self.file_name = self.document[0]["title"]
 
-        path = self._file_saving(self.downloads_path,
-                                 self.document[0]["title"])
+        self.saveButton.clicked.connect(self.savePressEvent) 
+        self.save_pdf_btn.clicked.connect(self.savePdfPressEvent)
+        self.open_file.clicked.connect(self.add_file)
+
+        path = self._file_saving(self.downloads_path, self.file_name)
         self.pathEdit.setText(path)
 
+    def add_file(self):
+        home_path = QDir.homePath()
+        pname = QFileDialog.getExistingDirectory(
+            self,
+            "Выбор папки",
+            home_path,
+        )
+        if pname:
+            self.pathEdit.setText(self._file_saving(pname, self.file_name))
+
+    def savePdfPressEvent(self, event):
+        path = self.pathEdit.toPlainText()
+
+        con = self.document[0]["content"]
+        c = Convert(con, self.file_name, path)
+        try:
+            os.startfile(c.output_path)
+        except AttributeError:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, c.output_path])
+        self.accept()
+
     def savePressEvent(self, event):
-        path = self._file_saving(self.downloads_path,
-                                 self.document[0]["title"])
+        path = self.pathEdit.toPlainText()
         try:
             with open(path, "wb") as f:
                 f.write(self.content)
@@ -142,15 +211,38 @@ class SaveMenuTemp(QDialog, Ui_dialog_box):
         temp = Templates()
         self.document = temp.get_templates_by_id(temp_id)
         self.content = self.document[0]["content"]
-
         self.downloads_path = os.path.join(os.path.expanduser("~"), PATH_SAVE)
+        self.file_name = self.document[0]["name"]
         self.saveButton.clicked.connect(self.savePressEvent)
+        self.open_file.clicked.connect(self.add_file)
+        self.save_pdf_btn.clicked.connect(self.savePdfPressEvent)
 
-        path = self._file_saving(self.downloads_path, self.document[0]["name"])
+        path = self._file_saving(self.downloads_path, self.file_name)
         self.pathEdit.setText(path)
 
+    def add_file(self):
+        home_path = QDir.homePath()
+        pname = QFileDialog.getExistingDirectory(
+            self,
+            "Выбор папки",
+            home_path,
+        )
+        if pname:
+            self.pathEdit.setText(self._file_saving(pname, self.file_name))
+
+    def savePdfPressEvent(self, event):
+        path = self.pathEdit.toPlainText()
+        con = self.document[0]["content"]
+        c = Convert(con, self.file_name, path)
+        try:
+            os.startfile(c.output_path)
+        except AttributeError:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, c.output_path])
+        self.accept()
+
     def savePressEvent(self, event):
-        path = self._file_saving(self.downloads_path, self.document[0]["name"])
+        path = self.pathEdit.toPlainText()
         try:
             with open(path, "wb") as f:
                 f.write(self.content)
@@ -199,7 +291,6 @@ class CartFile(QWidget, Ui_Student):
         self.user_id = None
         self.widget.setMouseTracking(True)
         self.widget.mousePressEvent = self.mousePressEvent
-
         self.dialog = None
 
     def mousePressEvent(self, event):
@@ -210,10 +301,10 @@ class CartFile(QWidget, Ui_Student):
                 self.dialog.setWindowTitle(f'Скачать файл ({name})')
             self.dialog.exec()
         elif event.button() == Qt.RightButton:
-            if int(User_id) == int(self.user_id):
+            if int(User_id) == int(self.user_id) or User_role == "admin":
                 if self.dialog is None:
                     self.dialog = MesangeDellete(name)
-                    self.dialog.setWindowTitle("Удалить ({name})")
+                    self.dialog.setWindowTitle(f"Удалить ({name})?")
                 if self.dialog.exec() == QDialog.Accepted:
                     Documents().remove_delite_by_id(self.document_id)
                 else:
@@ -231,7 +322,6 @@ class CartFileTemp(QWidget, Ui_Student):
         self.user_id = None
         self.widget.setMouseTracking(True)
         self.widget.mousePressEvent = self.mousePressEvent
-
         self.dialog = None
 
     def mousePressEvent(self, event):
@@ -242,10 +332,10 @@ class CartFileTemp(QWidget, Ui_Student):
                 self.dialog.setWindowTitle(f'Скачать файл ({name})')
             self.dialog.exec()
         elif event.button() == Qt.RightButton:
-            if int(User_id) == int(self.user_id):
+            if int(User_id) == int(self.user_id) or User_role == "admin":
                 if self.dialog is None:
                     self.dialog = MesangeDellete(name)
-                    self.dialog.setWindowTitle("Удалить ({name})")
+                    self.dialog.setWindowTitle(f"Удалить ({name})?")
                 if self.dialog.exec() == QDialog.Accepted:
                     Templates().get_templates_remove_by_id(self.temp_id)
                 else:
@@ -254,10 +344,82 @@ class CartFileTemp(QWidget, Ui_Student):
         super().mousePressEvent(event)
 
 
+class User_Update_Dialog(QDialog, Ui_User_update):
+    def __init__(self, id, name, login, password, role):
+        super().__init__()
+        self.setupUi(self)
+        self.id = id
+        self.role = role
+        self.name_textEdit.setText(name)
+        self.login_textEdit.setText(login)
+        self.password_textEdit.setText(password)
+        self.pushButtonIgnore.clicked.connect(self.push_ignore)
+        self.pushButtonUpdate.clicked.connect(self.push_update)
+        self.pushButtonRemove.clicked.connect(self.push_remove)
+        self.user = UserS()
+
+    def push_ignore(self, event):
+        self.reject()
+
+    def push_update(self, event):
+        id = self.id
+        new_role = self.role  # НЕ НОВЫЙ
+        new_name = self.name_textEdit.text()
+        new_login = self.login_textEdit.text()
+        new_password = self.password_textEdit.text()
+
+        if all([new_name, new_login, new_password]):
+            self.user.update_user(id=id,
+                                  login=new_login,
+                                  password_hash=new_password,
+                                  user_name=new_name,
+                                  role=new_role)
+            self.accept()
+        else:
+            self.label_4.setStyleSheet("color: red;background-color: none;")
+
+    def push_remove(self, event):
+        UserS().remove_user(self.id)
+        self.accept()
+
+
 class CartUser(QWidget, Ui_User):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.widget.mousePressEvent = self.mousePressEvent
+        self.dialog = None
+        self.id = "Чеза нах"
+
+    def mousePressEvent(self, event):
+        name = self.user_name.text()
+        login = self.user_login.text()
+        password = self.user_password.text()
+        role = self.user_prava.text()
+        if event.button() == Qt.LeftButton:
+            if self.dialog is None:
+                self.dialog = User_Update_Dialog(id=self.id,
+                                                 name=name,
+                                                 login=login,
+                                                 password=password,
+                                                 role=role)
+                self.dialog.setWindowTitle(f"Пользоватиль {name}")
+            if self.dialog.exec() == QDialog.Accepted:
+                self.user_name.setText(self.
+                                       dialog.
+                                       name_textEdit.
+                                       text())
+                self.user_login.setText(self.
+                                        dialog.
+                                        login_textEdit.
+                                        text())
+
+                self.user_password.setText(self.
+                                           dialog.
+                                           password_textEdit.
+                                           text())
+        self.dialog = None
+        super().mousePressEvent(event)
 
 
 class DefoltCart(QWidget, Ui_Defolt):
@@ -272,11 +434,17 @@ class User_wid(QWidget):
 
         self.ui = Ui_Users()
         self.ui.setupUi(self)
+        self.ui.update.setIcon(QIcon("static/icon/updaet.svg"))
         self.ui.createButton.clicked.connect(self.create_user_press)
+        self.ui.update.clicked.connect(self.push_update)
 
         self.users_db = UserS()
         user_list = self.users_db.get_users()
 
+        self._print_user_list(user_list)
+
+    def push_update(self, event):
+        user_list = self.users_db.get_users()
         self._print_user_list(user_list)
 
     def create_user_press(self, event):
@@ -291,7 +459,6 @@ class User_wid(QWidget):
         ):
             self.users_db.create_user(login, password, name, role)
             self._print_user_list(user_list=self.users_db.get_users())
-            # print(role_index)
 
     def _print_user_list(self, user_list=None):
         content_widget = QWidget()
@@ -299,6 +466,7 @@ class User_wid(QWidget):
 
         for use in user_list:
             sq = CartUser()
+            sq.id = use[0]
             sq.user_name.setText(use[3])
             sq.user_login.setText(str(use[1]))
             sq.user_password.setText(str(use[2]))
@@ -306,7 +474,6 @@ class User_wid(QWidget):
             bl.addWidget(sq.widget)
 
         bl.setSpacing(5)
-
         self.ui.scrollArea.setWidget(content_widget)
 
 
@@ -322,6 +489,7 @@ class Templates_wid(QWidget):
         self.ui.pushButtoName.setIcon(QIcon("static/icon/lupa.svg"))
         self.ui.pushButton_2.clicked.connect(self.createPressEvent)
         self.ui.pushButtoName.clicked.connect(self.namePressEvent)
+        self.ui.update.clicked.connect(self._temp_print)
         self.temp = Templates()
         temp_list = self.temp.get_templates()
         self._output_list_temp(temp_list)
@@ -390,7 +558,8 @@ class Documents_wid(QWidget):
         self.ui.NameButton.setIcon(QIcon("static/icon/lupa.svg"))
         self.ui.FileButton.setIcon(QIcon("static/icon/lupa.svg"))
         self.ui.DataButton.setIcon(QIcon("static/icon/lupa.svg"))
-        self.ui.dateEdit.setDate(QDate.fromString("22.05.2025", "dd.MM.yyyy"))
+        _data = datetime.datetime.now().strftime("%d.%m.%Y")
+        self.ui.dateEdit.setDate(QDate.fromString(f"{_data}", "dd.MM.yyyy"))
         self.ui.NameButton.clicked.connect(self.namePressEvent)
         self.ui.FileButton.clicked.connect(self.fileNamePressEvent)
         self.ui.update.clicked.connect(self._update_document_list)

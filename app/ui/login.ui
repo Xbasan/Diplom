@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">border-radius:30px;
-background-color: rgb(52, 167, 255);</string>
+background-color: rgb(30, 85, 200);</string>
   </property>
   <widget class="QLineEdit" name="login">
    <property name="geometry">
@@ -34,7 +34,7 @@ background-color: rgb(52, 167, 255);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(62, 167, 255);
+    <string notr="true">background-color: rgba(30, 85, 255, 55);
 border-style: solid;
 border-width: 2px;
 border-color: blue;
@@ -58,7 +58,7 @@ padding:16px;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(62, 167, 255);
+    <string notr="true">background-color: rgba(30, 85, 255, 55);
 border-style: solid;
 border-width: 2px;
 border-color: blue;
@@ -85,7 +85,7 @@ padding:16px;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(92, 167, 255);
+    <string notr="true">background-color: rgba(30, 85, 255, 55);
 border-style: solid;
 border-width: 1px;
 border-color: blue;
@@ -113,6 +113,7 @@ padding:16px;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 12pt &quot;URW Gothic [UKWN]&quot;;
+background-color: None;
 </string>
    </property>
    <property name="frameShape">
@@ -169,8 +170,15 @@ background-color: none;;</string>
      <height>18</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>URW Gothic [UKWN]</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(52, 167, 255);</string>
+    <string notr="true">color: rgba(30, 85, 255, 0);;
+background-color: None;</string>
    </property>
    <property name="text">
     <string>Введенные данные некорректны</string>

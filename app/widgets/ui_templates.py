@@ -15,14 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QPushButton, QScrollArea, QSizePolicy,
-    QTextEdit, QWidget)
+from PySide6.QtWidgets import (QApplication, QPlainTextEdit, QPushButton, QScrollArea,
+    QSizePolicy, QWidget)
 
 class Ui_Templates(object):
     def setupUi(self, Templates):
         if not Templates.objectName():
             Templates.setObjectName(u"Templates")
         Templates.resize(1400, 863)
+        Templates.setStyleSheet(u"")
         self.scrollArea = QScrollArea(Templates)
         self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setGeometry(QRect(0, 0, 1021, 870))
@@ -64,15 +65,9 @@ class Ui_Templates(object):
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1021, 870))
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.nameTextEdit = QTextEdit(Templates)
-        self.nameTextEdit.setObjectName(u"nameTextEdit")
-        self.nameTextEdit.setGeometry(QRect(1040, 80, 341, 70))
-        self.nameTextEdit.setStyleSheet(u"border-radius: 12px;\n"
-"background-color: rgba(0, 85, 255, 55);\n"
-"padding-left:10px")
         self.pushButtoName = QPushButton(Templates)
         self.pushButtoName.setObjectName(u"pushButtoName")
-        self.pushButtoName.setGeometry(QRect(1140, 170, 121, 41))
+        self.pushButtoName.setGeometry(QRect(1030, 150, 121, 41))
         font = QFont()
         font.setFamilies([u"URW Gothic [UKWN]"])
         font.setPointSize(12)
@@ -98,6 +93,18 @@ class Ui_Templates(object):
         icon2 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ViewRefresh))
         self.update.setIcon(icon2)
         self.update.setIconSize(QSize(32, 32))
+        self.nameTextEdit = QPlainTextEdit(Templates)
+        self.nameTextEdit.setObjectName(u"nameTextEdit")
+        self.nameTextEdit.setGeometry(QRect(1030, 90, 341, 45))
+        font1 = QFont()
+        font1.setFamilies([u"URW Gothic [UKWN]"])
+        font1.setPointSize(14)
+        font1.setBold(False)
+        font1.setItalic(False)
+        self.nameTextEdit.setFont(font1)
+        self.nameTextEdit.setStyleSheet(u"border-radius: 12px;\n"
+"background-color: rgba(0, 85, 255, 55);\n"
+"padding-left:10px")
 
         self.retranslateUi(Templates)
 

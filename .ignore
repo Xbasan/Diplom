@@ -2,6 +2,7 @@ test_file/
 __pycache__/
 .qtcreator/Python_3_13_0venv
 icon/
+temporary_files/
 
 *.ui
 *.user

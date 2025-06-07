@@ -33,7 +33,7 @@ class Widget(QWidget):
                 self.close()
             else:
                 textStyle = """
-                background-color: rgb(62, 167, 255);
+                background-color: rgba(245, 40, 76, 30);
                 border-style: solid;
                 border-width: 2px;
                 border-color: red;

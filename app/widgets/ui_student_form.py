@@ -84,7 +84,7 @@ class Ui_Student(object):
 
     def retranslateUi(self, Student):
         Student.setWindowTitle(QCoreApplication.translate("Student", u"Widget", None))
-        self.Fil_name.setText(QCoreApplication.translate("Student", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430 ", None))
+        self.Fil_name.setText(QCoreApplication.translate("Student", u"<html><head/><body><p align=\"justify\">\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430 </p></body></html>", None))
         self.Date.setText("")
         self.File_author.setText(QCoreApplication.translate("Student", u"\u0410\u0432\u0442\u043e\u0440 \u0444\u0430\u0439\u043b\u0430", None))
         self.Extensions.setText(QCoreApplication.translate("Student", u"\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u0438\u044f :", None))

@@ -41,9 +41,6 @@ class BaseModel:
         Базовый класс для запросов
     """
 
-    def __init__(self):
-        pass
-
     def execute_query(self, query, params=None, fetch=False):
         """
             Универсальный метод выполнения запросов
@@ -145,13 +142,16 @@ class UserS(BaseModel):
                     password_hash: str,
                     user_name: str,
                     role: str):
+        """
+            Обновляет данные о полььзоватиле
+        """
         query = """
             UPDATE users
-            SET login=?, password_hash=?, username=?, "role"=?'
+            SET login=?, password_hash=?, username=?, "role"=?
             WHERE id=?
         """
         params = (login, password_hash, user_name, role, id)
-        return self.execute_query(query, params)
+        return self.execute_query(query, params, True)
 
     def user_loging(self, login: str, password: str):
         """
@@ -164,6 +164,16 @@ class UserS(BaseModel):
             """
         params = (login, password)
         return dict(self.execute_query(query, params, True))
+
+    def remove_user(self, id):
+        """
+            Удоляет пользоватиля
+        """
+        query = """
+            DELETE FROM users WHERE id=?;
+        """
+        params = (id,)
+        return self.execute_query(query, params, True)
 
 
 class Documents(BaseModel):
@@ -232,9 +242,9 @@ class Documents(BaseModel):
         query = """
                 SELECT id, title, content, author_id, created_at
                 FROM documents
-                WHERE title LIKE ?
+                WHERE title LIKE ? OR title LIKE ?
                 """
-        params = (f"%{document_name}%",)
+        params = (f"%{document_name}%", f"%{document_name.title()}%")
         return self.execute_query(query, params, True)
 
     def get_documests_date(self, data: str):
@@ -308,9 +318,9 @@ class Templates(BaseModel):
         query = """
         SELECT id, name, content, author_id
         FROM templates
-        WHERE name LIKE ?
+        WHERE LOWER(name) LIKE LOWER(?) OR name LIKE ?
         """
-        params = (f"%{name}%",)
+        params = (f"%{name}%", f"%{name.title()}%")
         return self.execute_query(query, params, fetch=True)
 
     def get_templates_by_id(self, id: str):
