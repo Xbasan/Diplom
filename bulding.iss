@@ -1,3 +1,4 @@
+
 [Setup]
 AppName=Diplom
 AppVersion=1.0
