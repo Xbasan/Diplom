@@ -166,7 +166,7 @@ class SaveMenu(QDialog, Ui_dialog_box):
         path = self.pathEdit.toPlainText()
 
         con = self.document[0]["content"]
-        c = Convert(con, self.file_name, path)
+        c = Convert(con, path)
         try:
             os.startfile(c.output_path)
         except AttributeError:

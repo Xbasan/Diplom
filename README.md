@@ -1,19 +1,22 @@
+# Бомбовая дипломная х-работа
+
 ```
-Diplom/
+  Diplom/
 │
 ├── app/                     
-│   ├── __init__.py
-│   ├── main.py                 
 │   ├── config.py
+│   ├── loging.py
+│   ├── main.py                 
 │   ├── utils.py
+│   ├── temporary_files/
+│   ├── test_file/
 │   │
 │   ├── database/                
-│   │   ├── __init__.py
 │   │   ├── db.py
-│   │   └── database.py
+│   │   ├── database.py
+│   │   └── db.db 
 │   │
 │   ├── ui/                     
-│   │   ├── __init__.py
 │   │   ├── create_box.ui
 │   │   ├── defolt.ui
 │   │   ├── dialog_box.ui
@@ -24,10 +27,10 @@ Diplom/
 │   │   ├── student_form.ui
 │   │   ├── templates.ui
 │   │   ├── user_blok.ui
+│   │   ├── user_update.ui
 │   │   └── users.ui
 │   │
 │   ├── widgets/                
-│   │   ├── __init__.py
 │   │   ├── dialog_box.py
 │   │   ├── reference.py
 │   │   ├── widget.py
@@ -56,14 +59,15 @@ Diplom/
 ├── db/
 │   └── db.db
 │
-├── tests/
-│   ├── __init__.py
-│   └── test.py
+├── output/
+│   ├── setup.exe
+│   └── Diplom_Setup.exe
 │
-├── README.md
-├── requirements.txt
+├── bulding.iss
 ├── Diplom.pyproject
 ├── Diplom.pyproject.user
 ├── Diplom.spec
-└── bulding.iss           
+├── README.md
+├── requirements.txt
+└── win_requirements.txt
 ```

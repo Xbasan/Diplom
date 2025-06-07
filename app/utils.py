@@ -9,18 +9,21 @@ from sys import platform
 class Convert():
     "Приобразовывает файлы в PDF"
 
-    def __init__(self, file, file_name: str, file_path: str):
-        ext = Path(file_name).suffix.lower()
+    def __init__(self, file, file_path: str):
+        ext = Path(file_path).suffix.lower()
         self.output_path = file_path.replace(ext, ".pdf")
 
-        temporary_files = f"./temporary_files/{file_name}"
+        base_path = file_path.replace(ext, ".pdf")
+        temporary_files = path.join(".", "temporary_files",
+                                    path.basename(base_path.replace(".pdf",
+                                                                    ext)))
         with open(temporary_files, "wb") as f:
             f.write(file)
-        convert(file_name=file_name.replace(f"{ext}", ".pdf"),
-                source=temporary_files,
-                output_dir=file_path.replace(f"{file_name}", ""),
+        convert(file_name=path.basename(base_path),
+                source=path.abspath(temporary_files),
+                output_dir=base_path,
                 soft=0)
-        remove(temporary_files)
+        # remove(temporary_files)
 
 
 PLATFORMS_SUPPORTED = ["linux", "win32"]
@@ -42,26 +45,26 @@ def convert_to_pdf_libreoffice(file_name,
                                timeout=None) -> str:
     """Convert MS Office files to PDF using LibreOffice."""
     output = None
-    temp_filename = path.join(output_dir, path.basename(source))
-    copy2(source, temp_filename)
     try:
+        print(path.dirname(output_dir))
+        print(source)
         process = run(
             ['soffice',
                 '--headless',
                 '--convert-to',
                 'pdf',
                 '--outdir',
-                output_dir,
-                temp_filename
+                path.dirname(output_dir),
+                source
              ],
             stdout=PIPE,
             stderr=PIPE,
             timeout=timeout,
             check=True
         )
+        print(process)
         filename = search(r'-> (.*?) using filter',
                           process.stdout.decode("latin-1"))
-        remove_files([temp_filename])
         output = filename.group(1).replace("\\", "/") if filename else None
     except Exception as e:
         print(f"Error converting with LibreOffice: {e}")
@@ -74,7 +77,13 @@ def convert_doc_to_pdf_msoffice(file_name, source, output_dir):
     """Convert .doc/.docx files to PDF using MS Office."""
     output = path.join(output_dir, Path(source).stem + ".pdf")
     ws_pdf_format = 17
-    app = client.CreateObject("Word.Application")
+
+    try:
+        from win32com import client
+        app = client.Dispathc("Word.Application")
+    except ImportError:
+        from comtypes import client
+        app = client.CreateObject("Word.Application")
 
     try:
         doc = app.Documents.Open(source)
@@ -96,7 +105,13 @@ def convert_doc_to_pdf_msoffice(file_name, source, output_dir):
 def convert_xls_to_pdf_msoffice(file_name, source, output_dir):
     """Convert .xls/.xlsx files to PDF using MS Office."""
     output = path.join(output_dir, Path(source).stem + ".pdf")
-    app = client.CreateObject("Excel.Application")
+
+    try:
+        from win32com import client
+        app = client.Dispathc("Excel.Application")
+    except ImportError:
+        from comtypes import client
+        app = client.CreateObject("Excel.Application")
 
     try:
         sheets = app.Workbooks.Open(source)
@@ -114,8 +129,14 @@ def convert_xls_to_pdf_msoffice(file_name, source, output_dir):
 def convert_ppt_to_pdf_msoffice(file_name, source, output_dir):
     """Convert .ppt/.pptx files to PDF using MS Office."""
     output = path.join(output_dir, Path(source).stem + ".pdf")
-    app = client.CreateObject("PowerPoint.Application")
+    app = client.CreateObject()
 
+    try:
+        from win32com import client
+        app = client.Dispathc("PowerPoint.Application")
+    except ImportError:
+        from comtypes import client
+        app = client.CreateObject("PowerPoint.Application")
     try:
         presentation = app.Presentations.Open(source, False, False, False)
         presentation.ExportAsFixedFormat(output, 2, PrintRange=None)
