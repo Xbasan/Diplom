@@ -5,7 +5,7 @@ Diplom/
 │   ├── __init__.py
 │   ├── main.py                 
 │   ├── config.py
-│   ├── utils.py                     # если нужен
+│   ├── utils.py
 │   │
 │   ├── database/                
 │   │   ├── __init__.py
