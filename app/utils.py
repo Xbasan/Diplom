@@ -23,7 +23,7 @@ class Convert():
                 source=path.abspath(temporary_files),
                 output_dir=base_path,
                 soft=0)
-        # remove(temporary_files)
+        remove(temporary_files)
 
 
 PLATFORMS_SUPPORTED = ["linux", "win32"]
@@ -46,8 +46,6 @@ def convert_to_pdf_libreoffice(file_name,
     """Convert MS Office files to PDF using LibreOffice."""
     output = None
     try:
-        print(path.dirname(output_dir))
-        print(source)
         process = run(
             ['soffice',
                 '--headless',
@@ -62,7 +60,6 @@ def convert_to_pdf_libreoffice(file_name,
             timeout=timeout,
             check=True
         )
-        print(process)
         filename = search(r'-> (.*?) using filter',
                           process.stdout.decode("latin-1"))
         output = filename.group(1).replace("\\", "/") if filename else None

@@ -42,7 +42,8 @@ class Widget(QWidget):
                 """
                 self.ui.login.setStyleSheet(textStyle)
                 self.ui.password.setStyleSheet(textStyle)
-                self.ui.audentifaceit_errorLabel.setStyleSheet("color:red;")
+                self.ui.audentifaceit_errorLabel.setStyleSheet("""color:red;
+                                                    background-color: none;""")
 
     def show_password(self, event):
         if self.ui.password.echoMode().value == 2:
